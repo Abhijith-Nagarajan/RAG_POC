@@ -1,0 +1,13 @@
+Here are different RAG architectures found online - Link to the article: https://humanloop.com/blog/rag-architectures
+
+1) Simple RAG - This is a vanilla RAG, where a static vector database is used to retrieve information, and the RAG is primarily used for question answering.
+2) Simple RAG with memory - This includes a memory component to (1) so that past interactions or data can be accessed and used. Again, a static vector DB is used here.
+3) Branched RAG - This can be used to look up multiple information sources, and the RAG decides which source has the most accurate information wrt the user query.
+4) Adaptive RAG - This is a dynamic implementation that adjusts its retrieval strategy based on the complexity of a query. It can change its retrieval strategy in real-time.
+(Eg) Simple queries - May retrieve docs from a single source.
+     Complex queries - May access multiple data sources or employ more sophisticated techniques.
+5) Agentic RAG - This is the most autonomous, agent-like behavior RAG for retrieval and generation. Here, the model performs complex, multi-step tasks, proactively interacting with multiple data sources.
+Pros - Enables more sophisticated decision-making by allowing the model to determine which retrieval strategies or external systems to engage with, based on the query's complexity.
+
+Agent - An LLM that has the potential to call tools or functions to solve a specific task.
+  
