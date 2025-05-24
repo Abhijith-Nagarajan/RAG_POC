@@ -37,7 +37,7 @@ for index, doc in enumerate(documents[:3]):
     text_str += doc.text
 
 #print(text_str)
-# 63 - 51 pages from the first paper and 12 pages from the second paper. 
+# 63 -> 51 pages from the first paper and 12 pages from the second paper. 
 # It seems to be that each page has become a document.
 
 index = VectorStoreIndex.from_documents(documents)
