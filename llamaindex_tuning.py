@@ -8,6 +8,7 @@ from llama_index.llms.llama_cpp import LlamaCPP
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 import faiss
 import os, getpass
+import time
 
 os.environ['OPENAI_API_KEY'] = getpass.getpass('Open AI API Key:')
 
@@ -16,16 +17,15 @@ folder_path = r"./Data"
 # Step 1 - Load and read all files within a folder 
 docs = SimpleDirectoryReader(folder_path).load_data()
 
-model_path = 'GIVE MODEL PATH'
+model_path = r"E:\RAG_Models\mistral-7b-instruct-v0.1.Q5_K_M.gguf"
 llm = LlamaCPP(
     model_path=model_path, 
-    temperature=0.7,
+    temperature=0.35,
     max_new_tokens=512,
     context_window=4096,
     verbose=True,
 )  
 Settings.llm = llm
-
 
 # Step 2 - To experiment with chunk size and overlap
 text_splitter = SentenceSplitter(chunk_size = 300, chunk_overlap = 25)
@@ -45,11 +45,26 @@ index = VectorStoreIndex.from_documents(docs, storage_context=storage_context)
 
 # Step 5 - Adding memory 
 memory = ChatMemoryBuffer.from_defaults(token_limit = 3000)
-retriever = index.as_retriever(similarity_top_k = 5)
+query_engine = index.as_query_engine(similarity_top_k = 5)
 
 chat_engine = CondenseQuestionChatEngine.from_defaults(
-    retriever = retriever,
-    memory = memory,
-
+    query_engine = query_engine,
+    memory = memory
 )
 
+response = chat_engine.chat('What is the triplet format for REBEL?')
+print(response)
+
+type(response)
+
+# Checking the performance of FAISS
+retriever = index.as_retriever(similarity_top_k = 5)
+start = time.time()
+nodes = retriever.retrieve("What is the triplet format for REBEL?")
+print(f"FAISS took {time.time() - start:.2f} seconds")
+
+first_node = nodes[0]
+
+first_node.metadata
+first_node.score
+first_node.get_content()
