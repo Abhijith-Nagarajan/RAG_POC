@@ -12,7 +12,7 @@ import time
 
 os.environ['OPENAI_API_KEY'] = getpass.getpass('Open AI API Key:')
 
-folder_path = r"./Data"
+folder_path = r".\Data"
 
 # Step 1 - Load and read all files within a folder 
 docs = SimpleDirectoryReader(folder_path).load_data()
@@ -46,7 +46,7 @@ index = VectorStoreIndex.from_documents(docs, storage_context=storage_context)
 
 # Step 5 - Adding memory 
 memory = ChatMemoryBuffer.from_defaults(token_limit = 3000)
-query_engine = index.as_query_engine(similarity_top_k = 5)
+query_engine = index.as_query_engine(similarity_top_k = 3)
 
 chat_engine = CondenseQuestionChatEngine.from_defaults(
     query_engine = query_engine,
@@ -77,19 +77,36 @@ model_path = model_directory+"\\"+model_name
 Settings.llm = load_model(model_path)
 
 retriever = index.as_retriever(similarity_top_k = 3)
+
 query = 'What is the triplet format for REBEL?'
-nodes = retriever.retrieve(query)
-chunks = [n.node.get_content() for n in nodes]
-context = "\n".join(sorted(set(chunks))) 
+def perform_retrieval(retriever, query):
+    nodes = retriever.retrieve(query)
+    chunks = [n.node.get_content() for n in nodes]
+    context = "\n".join(sorted(set(chunks)))
+    return context
 
-prompt = f"""You are a helpful assistant reading research paper excerpts.
+context = perform_retrieval(retriever, query)
 
-Context:
-{context}
+def get_prompt(context, query):
+    prompt = f"""You are a helpful assistant reading research paper excerpts.
+                    Context:
+                    {context}
 
-Question: {query}
+                    Question: {query}
 
-Answer:"""
+                    Answer:"""
+    return prompt
 
+prompt = get_prompt(context,query)
 llama_response = Settings.llm.complete(prompt)
 print(llama_response)
+
+# Now implementing with chat memory
+query2 = "What are the three main components of relation extraction?"
+context = perform_retrieval(retriever, query2)
+prompt = get_prompt(context,query2)
+
+llama_response_re = Settings.llm.complete(prompt)
+print(llama_response_re)
+
+
