@@ -17,15 +17,16 @@ folder_path = r"./Data"
 # Step 1 - Load and read all files within a folder 
 docs = SimpleDirectoryReader(folder_path).load_data()
 
-model_path = r"E:\RAG_Models\mistral-7b-instruct-v0.1.Q5_K_M.gguf"
-llm = LlamaCPP(
-    model_path=model_path, 
-    temperature=0.35,
-    max_new_tokens=512,
-    context_window=4096,
-    verbose=True,
-)  
-Settings.llm = llm
+model_directory = r"E:\RAG_Models"
+model_name = "mistral-7b-instruct-v0.1.Q5_K_M.gguf"
+
+model_path = model_directory+"\\"+model_name
+
+def load_model(model_path, temperature = 0.4, max_new_tokens = 512, context_window = 4096):
+    llm = LlamaCPP(model_path = model_path, temperature = temperature, max_new_tokens = max_new_tokens, context_window = context_window, verbose=True)
+    return llm
+
+Settings.llm = load_model(model_path)
 
 # Step 2 - To experiment with chunk size and overlap
 text_splitter = SentenceSplitter(chunk_size = 300, chunk_overlap = 25)
@@ -68,3 +69,27 @@ first_node = nodes[0]
 first_node.metadata
 first_node.score
 first_node.get_content()
+
+# Experimenting with a smaller model as mistral 7B took too long to run
+model_name = "tinyllama-1.1b-chat-v1.0.Q8_0.gguf"
+model_path = model_directory+"\\"+model_name
+
+Settings.llm = load_model(model_path)
+
+retriever = index.as_retriever(similarity_top_k = 3)
+query = 'What is the triplet format for REBEL?'
+nodes = retriever.retrieve(query)
+chunks = [n.node.get_content() for n in nodes]
+context = "\n".join(sorted(set(chunks))) 
+
+prompt = f"""You are a helpful assistant reading research paper excerpts.
+
+Context:
+{context}
+
+Question: {query}
+
+Answer:"""
+
+llama_response = Settings.llm.complete(prompt)
+print(llama_response)
