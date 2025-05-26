@@ -25,6 +25,9 @@ llm = LlamaCPP(
 Settings.llm = llm
 
 documents = SimpleDirectoryReader(data_dir).load_data()
+
+documents
+
 len(documents)
 
 print(documents[0].__dict__)
