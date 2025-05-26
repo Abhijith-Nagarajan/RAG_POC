@@ -108,5 +108,3 @@ prompt = get_prompt(context,query2)
 
 llama_response_re = Settings.llm.complete(prompt)
 print(llama_response_re)
-
-
