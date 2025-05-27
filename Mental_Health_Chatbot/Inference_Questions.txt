@@ -1,0 +1,53 @@
+1. Core Neurotransmitter–Disorder Links  (Recall & Precision)
+
+“How does serotonin dysregulation contribute to major depressive disorder?”
+
+“Is elevated dopamine consistently observed in patients with schizophrenia?”
+
+“Role of GABA in the pathophysiology of generalized anxiety disorder.”
+
+“What evidence links norepinephrine to post‑traumatic stress disorder symptom severity?”
+
+“Does glutamate hyperactivity underlie bipolar mania episodes?”
+
+2. Treatment‑Mechanism Questions  (Factual Grounding)
+
+“How do SSRIs modulate serotonin signaling in anxiety treatment?”
+
+“Mechanism by which bupropion affects dopamine and norepinephrine in depression.”
+
+“Why are benzodiazepines effective for acute anxiety from a GABAergic perspective?”
+
+“Explain how ketamine’s glutamatergic action produces rapid antidepressant effects.”
+
+3. Gut–Brain Axis (Edge‑case Retrieval)
+
+“Evidence that gut microbiome alterations influence serotonin availability.”
+
+“How do probiotics modulate neurotransmitters relevant to social anxiety?”
+
+4. Comorbidity & Cross‑Talk  (Multi‑hop)
+
+“Is dopamine–serotonin interaction implicated in comorbid anxiety and depression?”
+
+“Neurotransmitter changes observed in patients with both OCD and Tourette’s syndrome.”
+
+5. Historical / Trend Questions  (Context window stress‑test)
+
+“Chronological overview: discovery of serotonin’s role in mood regulation (1950s → present).”
+
+“Key milestones linking dopamine to reward circuitry over the last four decades.”
+
+6. Safety & Side‑Effects (Grounding + Specificity)
+
+“Long‑term effects of SSRI‑induced serotonin elevation on adolescent brain development.”
+
+“Relationship between antipsychotic‑induced dopamine blockade and metabolic syndrome.”
+
+7. Emerging Research  (Novelty & Recall)
+
+“Explain recent findings on glutamate–GABA balance in treatment‑resistant depression.”
+
+“What do 2023 studies suggest about acetylcholine and cognitive symptoms in PTSD?”
+
+“State‑of‑the‑art understanding of endorphins in stress resilience.”
